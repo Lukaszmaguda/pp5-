@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal wymiany książek">
+    <title>Portal Wymiany Książek</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <header>
+        <h1>Portal Wymiany Książek</h1>
+        <nav>
+            <ul>
+                <li><a href="#dodaj-ksiazke">Dodaj Książkę</a></li>
+                <li><a href="#szukaj-ksiazki">Szukaj Książki</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Sekcja dodawania książki -->
+        <section id="dodaj-ksiazke">
+            <h2>Dodaj książkę do wymiany</h2>
+            <form id="dodajKsiazkeForm">
+                <label for="tytul">Tytuł książki:</label>
+                <input type="text" id="tytul" name="tytul" required>
+
+                <label for="autor">Autor:</label>
+                <input type="text" id="autor" name="autor" required>
+
+                <label for="rok">Rok wydania:</label>
+                <input type="number" id="rok" name="rok" required min="1450" max="2024">
+
+                <label for="kategoria">Kategoria:</label>
+                <select id="kategoria" name="kategoria" required>
+                    <option value="fantastyka">Fantastyka</option>
+                    <option value="biografia">Biografia</option>
+                    <option value="poradnik">Poradnik</option>
+                    <option value="kryminał">Kryminał</option>
+                    <option value="literatura piękna">Literatura piękna</option>
+                </select>
+
+                <label for="stan">Stan książki:</label>
+                <div id="stan">
+                    <input type="radio" id="nowa" name="stan" value="nowa" required>
+                    <label for="nowa">Nowa</label>
+                    
+                    <input type="radio" id="idealny" name="stan" value="idealny">
+                    <label for="idealny">Idealny</label>
+                    
+                    <input type="radio" id="dobry" name="stan" value="dobry">
+                    <label for="dobry">Dobry</label>
+
+                    <input type="radio" id="używana" name="stan" value="używana">
+                    <label for="używana">Używana</label>
+                </div>
+
+                <label for="notatki">Notatki dodatkowe:</label>
+                <textarea id="notatki" name="notatki" rows="4"></textarea>
+
+                <button type="submit">Dodaj książkę</button>
+            </form>
+        </section>
+
+        <!-- Sekcja wyszukiwania książek -->
+        <section id="szukaj-ksiazki">
+            <h2>Wyszukaj książki do wymiany</h2>
+            <form id="wyszukajKsiazkeForm">
+                <label for="tytul-wyszukiwanie">Tytuł książki:</label>
+                <input type="text" id="tytul-wyszukiwanie" name="tytul-wyszukiwanie">
+
+                <label for="kategoria-wyszukiwanie">Kategoria:</label>
+                <select id="kategoria-wyszukiwanie" name="kategoria-wyszukiwanie">
+                    <option value="">Wszystkie kategorie</option>
+                    <option value="fantastyka">Fantastyka</option>
+                    <option value="biografia">Biografia</option>
+                    <option value="poradnik">Poradnik</option>
+                    <option value="kryminał">Kryminał</option>
+                    <option value="literatura piękna">Literatura piękna</option>
+                </select>
+
+                <label for="rok-od">Rok wydania od:</label>
+                <input type="number" id="rok-od" name="rok-od" min="1450" max="2024">
+
+                <label for="rok-do">Rok wydania do:</label>
+                <input type="number" id="rok-do" name="rok-do" min="1450" max="2024">
+
+                <button type="submit">Wyszukaj książki</button>
+            </form>
+        </section>
+
+        <section id="kontakt">
+            <h2>Skontaktuj się z właścicielem książki</h2>
+            <form id="kontaktForm">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Wprowadź poprawny adres e-mail, np. przykład@domena.com">
+                
+                <label for="imie">Imię:</label>
+                <input type="text" id="imie" name = "imie">
+                
+                <label for="nazwisko">Nazwisko:</label>
+                <input type="text" id="nazwisko" name = "nazwisko">
+
+                <label for="wiadomosc">Wiadomość</label>
+                <textarea id="wiadomosc" name="wiadomosc" rows="4"></textarea>
+
+                <div>
+                    <input type="checkbox" id="zgoda" name="zgoda" required>
+                    <label for="zgoda">Potwierdzam zapoznanie się z regulaminem</label>
+                </div>
+                <button type="submit">Wyślij wiadomość</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Portal Wymiany Książek - Łukasz Maguda | Mikołaj Kochaniak</p>
+    </footer>
+    <script src="script.js"></script>
+
+</body>
+</html>

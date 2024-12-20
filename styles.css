@@ -1,0 +1,150 @@
+@charset "UTF-8";
+/* Zmienne */
+/* Resetowanie stylów domyślnych */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #241602;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Nagłówek */
+header {
+  background-color: #3b2525;
+  color: #fff;
+  padding: 1rem 2rem;
+  text-align: center;
+}
+header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+header nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+header nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+header nav a:hover {
+  color: #7a4c4c;
+}
+
+/* Główna zawartość */
+main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+main section {
+  background-color: #fff;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+main section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #3b2525;
+}
+
+/* Formularze */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+form label {
+  font-weight: bold;
+}
+form input[type=text],
+form input[type=number],
+form input[type=email],
+form textarea,
+form select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  border: 1px solid #7a4623;
+}
+form input[type=radio],
+form input[type=checkbox] {
+  margin-right: 0.5rem;
+  accent-color: #7a4623;
+}
+form button {
+  background-color: #3b2525;
+  color: #fff;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+form button:hover {
+  background-color: #7a4623;
+}
+
+#kontakt {
+  margin-top: 2rem;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+}
+#kontakt h2 {
+  font-size: 1.5rem;
+  flex-direction: column;
+  color: #3b2525;
+}
+#kontakt form label {
+  margin-top: 0.2rem;
+  font-weight: bold;
+  color: #555;
+}
+#kontakt button {
+  background-color: #3b2525;
+  color: #fff;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+#kontakt button:hover {
+  background-color: #7a4623;
+}
+
+input[type=checkbox] {
+  accent-color: #7a4623;
+}
+
+/* Stopka */
+footer {
+  background-color: #3b2525;
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+}/*# sourceMappingURL=styles.css.map */
