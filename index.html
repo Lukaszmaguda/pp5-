@@ -6,6 +6,7 @@
     <meta name="description" content="Portal wymiany książek">
     <title>Portal Wymiany Książek</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="favicon.jpg">
 </head>
 <body>
 
@@ -20,7 +21,6 @@
     </header>
 
     <main>
-        <!-- Sekcja dodawania książki -->
         <section id="dodaj-ksiazke">
             <h2>Dodaj książkę do wymiany</h2>
             <form id="dodajKsiazkeForm">
@@ -31,7 +31,7 @@
                 <input type="text" id="autor" name="autor" required>
 
                 <label for="rok">Rok wydania:</label>
-                <input type="number" id="rok" name="rok" required min="1450" max="2024">
+                <input type="number" id="rok" name="rok" required max="2024">
 
                 <label for="kategoria">Kategoria:</label>
                 <select id="kategoria" name="kategoria" required>
@@ -64,28 +64,17 @@
             </form>
         </section>
 
-        <!-- Sekcja wyszukiwania książek -->
         <section id="szukaj-ksiazki">
             <h2>Wyszukaj książki do wymiany</h2>
             <form id="wyszukajKsiazkeForm">
                 <label for="tytul-wyszukiwanie">Tytuł książki:</label>
                 <input type="text" id="tytul-wyszukiwanie" name="tytul-wyszukiwanie">
 
-                <label for="kategoria-wyszukiwanie">Kategoria:</label>
-                <select id="kategoria-wyszukiwanie" name="kategoria-wyszukiwanie">
-                    <option value="">Wszystkie kategorie</option>
-                    <option value="fantastyka">Fantastyka</option>
-                    <option value="biografia">Biografia</option>
-                    <option value="poradnik">Poradnik</option>
-                    <option value="kryminał">Kryminał</option>
-                    <option value="literatura piękna">Literatura piękna</option>
-                </select>
-
                 <label for="rok-od">Rok wydania od:</label>
-                <input type="number" id="rok-od" name="rok-od" min="1450" max="2024">
+                <input type="number" id="rok-od" name="rok-od" max="2024">
 
                 <label for="rok-do">Rok wydania do:</label>
-                <input type="number" id="rok-do" name="rok-do" min="1450" max="2024">
+                <input type="number" id="rok-do" name="rok-do" max="2024">
 
                 <button type="submit">Wyszukaj książki</button>
             </form>
