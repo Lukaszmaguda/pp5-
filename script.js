@@ -152,14 +152,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     }); });
-    // Obsługa dodawania książek
     var addBookForm = document.getElementById("dodajKsiazkeForm");
-    // Uzyskiwanie sekcji #dodaj-ksiazke, do której dodasz wyniki
     var addBookSection = document.getElementById("dodaj-ksiazke");
-    // Kontener dla wyników
     var resultsContainer = document.createElement("div");
     resultsContainer.id = "resultsContainer";
-    // Umieszczamy kontener poniżej formularza w sekcji
     addBookSection.insertAdjacentElement("beforeend", resultsContainer);
     addBookForm.addEventListener("submit", function (event) {
         event.preventDefault();
@@ -170,23 +166,18 @@ document.addEventListener("DOMContentLoaded", function () {
         var stanInputs = document.getElementsByName("stan");
         var notatki = document.getElementById("notatki")
             .value;
-        // Znajdowanie wybranego stanu
         var stan = "";
         stanInputs.forEach(function (input) {
             if (input.checked) {
                 stan = input.value;
             }
         });
-        // Tworzenie elementu wynikowego
         var resultDiv = document.createElement("div");
         resultDiv.classList.add("result");
         resultDiv.innerHTML = "\n                <h3>Dodana ksi\u0105\u017Cka:</h3>\n                <p><strong>Tytu\u0142:</strong> ".concat(tytul, "</p>\n                <p><strong>Autor:</strong> ").concat(autor, "</p>\n                <p><strong>Rok wydania:</strong> ").concat(rok, "</p>\n                <p><strong>Kategoria:</strong> ").concat(kategoria, "</p>\n                <p><strong>Stan ksi\u0105\u017Cki:</strong> ").concat(stan, "</p>\n                <p><strong>Notatki:</strong> ").concat(notatki ? notatki : "Brak", "</p>\n              ");
-        // Dodanie nowego elementu do kontenera wyników
         resultsContainer.appendChild(resultDiv);
-        // Resetowanie formularza
         addBookForm.reset();
     });
-    // Obsługa dodawania opinii
     var opinionForm = document.getElementById("dodajOpinieForm");
     var opinionList = document.getElementById("lista-opinii");
     opinionForm.addEventListener("submit", function (event) {
@@ -194,29 +185,23 @@ document.addEventListener("DOMContentLoaded", function () {
         var userName = document.getElementById("nazwa-uzytkownika").value;
         var opinionText = document.getElementById("opinia").value;
         var agreementChecked = document.getElementById("zgoda").checked;
-        // Walidacja: Sprawdzamy, czy użytkownik wyraził zgodę
         if (!agreementChecked) {
             alert("Musisz wyrazić zgodę na zapoznanie się z regulaminem.");
             return;
         }
-        // Walidacja: Sprawdzamy, czy są dane użytkownika i opinia
         if (!userName || !opinionText) {
             alert("Proszę podać nazwę użytkownika oraz opinię.");
             return;
         }
-        // Tworzymy element do wyświetlenia opinii
         var opinionDiv = document.createElement("div");
         opinionDiv.classList.add("opinia");
-        opinionDiv.innerHTML = "\n        <p><strong>".concat(userName, "</strong> powiedzia\u0142:</p>\n        <p>\"").concat(opinionText, "\"</p>\n      ");
-        // Dodajemy nową opinię do listy
+        opinionDiv.innerHTML = "\n        <p><strong>".concat(userName, "</strong>:</p>\n        <p>\"").concat(opinionText, "\"</p>\n      ");
         opinionList.appendChild(opinionDiv);
-        // Resetowanie formularza po dodaniu opinii
         opinionForm.reset();
-        // Zmiana komunikatu, jeśli opinie były puste
         if (opinionList.children.length > 0) {
             var noOpinionsMessage = opinionList.querySelector("p");
             if (noOpinionsMessage) {
-                noOpinionsMessage.style.display = "none"; // Ukrywanie komunikatu o braku opinii
+                noOpinionsMessage.style.display = "none";
             }
         }
     });

@@ -124,21 +124,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Obsługa dodawania książek
   const addBookForm = document.getElementById(
     "dodajKsiazkeForm"
   ) as HTMLFormElement;
 
-  // Uzyskiwanie sekcji #dodaj-ksiazke, do której dodasz wyniki
   const addBookSection = document.getElementById(
     "dodaj-ksiazke"
   ) as HTMLElement;
 
-  // Kontener dla wyników
   const resultsContainer = document.createElement("div");
   resultsContainer.id = "resultsContainer";
 
-  // Umieszczamy kontener poniżej formularza w sekcji
   addBookSection.insertAdjacentElement("beforeend", resultsContainer);
 
   addBookForm.addEventListener("submit", (event: Event) => {
@@ -156,7 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const notatki = (document.getElementById("notatki") as HTMLTextAreaElement)
       .value;
 
-    // Znajdowanie wybranego stanu
     let stan = "";
     stanInputs.forEach((input) => {
       if (input.checked) {
@@ -164,7 +159,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Tworzenie elementu wynikowego
     const resultDiv = document.createElement("div");
     resultDiv.classList.add("result");
 
@@ -178,14 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p><strong>Notatki:</strong> ${notatki ? notatki : "Brak"}</p>
               `;
 
-    // Dodanie nowego elementu do kontenera wyników
     resultsContainer.appendChild(resultDiv);
-
-    // Resetowanie formularza
     addBookForm.reset();
   });
 
-  // Obsługa dodawania opinii
   const opinionForm = document.getElementById(
     "dodajOpinieForm"
   ) as HTMLFormElement;
@@ -204,38 +194,31 @@ document.addEventListener("DOMContentLoaded", () => {
       document.getElementById("zgoda") as HTMLInputElement
     ).checked;
 
-    // Walidacja: Sprawdzamy, czy użytkownik wyraził zgodę
     if (!agreementChecked) {
       alert("Musisz wyrazić zgodę na zapoznanie się z regulaminem.");
       return;
     }
 
-    // Walidacja: Sprawdzamy, czy są dane użytkownika i opinia
     if (!userName || !opinionText) {
       alert("Proszę podać nazwę użytkownika oraz opinię.");
       return;
     }
 
-    // Tworzymy element do wyświetlenia opinii
     const opinionDiv = document.createElement("div");
     opinionDiv.classList.add("opinia");
 
     opinionDiv.innerHTML = `
-        <p><strong>${userName}</strong> powiedział:</p>
+        <p><strong>${userName}</strong>:</p>
         <p>"${opinionText}"</p>
       `;
 
-    // Dodajemy nową opinię do listy
     opinionList.appendChild(opinionDiv);
 
-    // Resetowanie formularza po dodaniu opinii
     opinionForm.reset();
-
-    // Zmiana komunikatu, jeśli opinie były puste
     if (opinionList.children.length > 0) {
       const noOpinionsMessage = opinionList.querySelector("p");
       if (noOpinionsMessage) {
-        noOpinionsMessage.style.display = "none"; // Ukrywanie komunikatu o braku opinii
+        noOpinionsMessage.style.display = "none";
       }
     }
   });
