@@ -140,17 +140,14 @@ document.addEventListener("DOMContentLoaded", () => {
   addBookForm.addEventListener("submit", (event: Event) => {
     event.preventDefault();
 
-    const tytul = (document.getElementById("tytul") as HTMLInputElement).value;
-    const autor = (document.getElementById("autor") as HTMLInputElement).value;
-    const rok = (document.getElementById("rok") as HTMLInputElement).value;
-    const kategoria = (
-      document.getElementById("kategoria") as HTMLSelectElement
-    ).value;
+    const tytul = document.getElementById("tytul") as HTMLInputElement;
+    const autor = document.getElementById("autor") as HTMLInputElement;
+    const rok = document.getElementById("rok") as HTMLInputElement;
+    const kategoria = document.getElementById("kategoria") as HTMLSelectElement;
     const stanInputs = document.getElementsByName(
       "stan"
     ) as NodeListOf<HTMLInputElement>;
-    const notatki = (document.getElementById("notatki") as HTMLTextAreaElement)
-      .value;
+    const notatki = document.getElementById("notatki") as HTMLTextAreaElement;
 
     let stan = "";
     stanInputs.forEach((input) => {
@@ -159,18 +156,67 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
+    // Validate required fields
+    const requiredFields = [
+      {
+        element: tytul,
+        value: tytul.value,
+        message: "Proszę podać tytuł książki.",
+      },
+      {
+        element: autor,
+        value: autor.value,
+        message: "Proszę podać autora książki.",
+      },
+      {
+        element: rok,
+        value: rok.value,
+        message: "Proszę podać rok wydania książki.",
+      },
+      {
+        element: kategoria,
+        value: kategoria.value,
+        message: "Proszę wybrać kategorię książki.",
+      },
+      {
+        element: document.querySelector(
+          'input[name="stan"]:checked'
+        ) as HTMLInputElement,
+        value: stan,
+        message: "Proszę wybrać stan książki.",
+      },
+    ];
+
+    let allFieldsFilled = true;
+    requiredFields.forEach((field) => {
+      const errorMessageElement = field.element
+        .nextElementSibling as HTMLElement;
+      if (!field.value) {
+        field.element.classList.add("invalid");
+        errorMessageElement.textContent = field.message;
+        allFieldsFilled = false;
+      } else {
+        field.element.classList.remove("invalid");
+        errorMessageElement.textContent = "";
+      }
+    });
+
+    if (!allFieldsFilled) {
+      return;
+    }
+
     const resultDiv = document.createElement("div");
     resultDiv.classList.add("result");
 
     resultDiv.innerHTML = `
-                <h3>Dodana książka:</h3>
-                <p><strong>Tytuł:</strong> ${tytul}</p>
-                <p><strong>Autor:</strong> ${autor}</p>
-                <p><strong>Rok wydania:</strong> ${rok}</p>
-                <p><strong>Kategoria:</strong> ${kategoria}</p>
-                <p><strong>Stan książki:</strong> ${stan}</p>
-                <p><strong>Notatki:</strong> ${notatki ? notatki : "Brak"}</p>
-              `;
+      <h3>Dodana książka:</h3>
+      <p><strong>Tytuł:</strong> ${tytul.value}</p>
+      <p><strong>Autor:</strong> ${autor.value}</p>
+      <p><strong>Rok wydania:</strong> ${rok.value}</p>
+      <p><strong>Kategoria:</strong> ${kategoria.value}</p>
+      <p><strong>Stan książki:</strong> ${stan}</p>
+      <p><strong>Notatki:</strong> ${notatki.value ? notatki.value : "Brak"}</p>
+    `;
 
     resultsContainer.appendChild(resultDiv);
     addBookForm.reset();
@@ -184,23 +230,50 @@ document.addEventListener("DOMContentLoaded", () => {
   opinionForm.addEventListener("submit", (event: Event) => {
     event.preventDefault();
 
-    const userName = (
-      document.getElementById("nazwa-uzytkownika") as HTMLInputElement
-    ).value;
-    const opinionText = (
-      document.getElementById("opinia") as HTMLTextAreaElement
-    ).value;
-    const agreementChecked = (
-      document.getElementById("zgoda") as HTMLInputElement
-    ).checked;
+    const userName = document.getElementById(
+      "nazwa-uzytkownika"
+    ) as HTMLInputElement;
+    const opinionText = document.getElementById(
+      "opinia"
+    ) as HTMLTextAreaElement;
+    const agreementChecked = document.getElementById(
+      "zgoda"
+    ) as HTMLInputElement;
 
-    if (!agreementChecked) {
-      alert("Musisz wyrazić zgodę na zapoznanie się z regulaminem.");
-      return;
-    }
+    // Validate required fields
+    const requiredFields = [
+      {
+        element: userName,
+        value: userName.value,
+        message: "Proszę podać nazwę użytkownika.",
+      },
+      {
+        element: opinionText,
+        value: opinionText.value,
+        message: "Proszę podać opinię.",
+      },
+      {
+        element: agreementChecked,
+        value: agreementChecked.checked ? "checked" : "",
+        message: "Musisz wyrazić zgodę na zapoznanie się z regulaminem.",
+      },
+    ];
 
-    if (!userName || !opinionText) {
-      alert("Proszę podać nazwę użytkownika oraz opinię.");
+    let allFieldsFilled = true;
+    requiredFields.forEach((field) => {
+      const errorMessageElement = field.element
+        .nextElementSibling as HTMLElement;
+      if (!field.value) {
+        field.element.classList.add("invalid");
+        errorMessageElement.textContent = field.message;
+        allFieldsFilled = false;
+      } else {
+        field.element.classList.remove("invalid");
+        errorMessageElement.textContent = "";
+      }
+    });
+
+    if (!allFieldsFilled) {
       return;
     }
 
@@ -208,9 +281,9 @@ document.addEventListener("DOMContentLoaded", () => {
     opinionDiv.classList.add("opinia");
 
     opinionDiv.innerHTML = `
-        <p><strong>${userName}</strong>:</p>
-        <p>"${opinionText}"</p>
-      `;
+      <p><strong>${userName.value}</strong>:</p>
+      <p>"${opinionText.value}"</p>
+    `;
 
     opinionList.appendChild(opinionDiv);
 

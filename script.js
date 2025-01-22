@@ -159,22 +159,66 @@ document.addEventListener("DOMContentLoaded", function () {
     addBookSection.insertAdjacentElement("beforeend", resultsContainer);
     addBookForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        var tytul = document.getElementById("tytul").value;
-        var autor = document.getElementById("autor").value;
-        var rok = document.getElementById("rok").value;
-        var kategoria = document.getElementById("kategoria").value;
+        var tytul = document.getElementById("tytul");
+        var autor = document.getElementById("autor");
+        var rok = document.getElementById("rok");
+        var kategoria = document.getElementById("kategoria");
         var stanInputs = document.getElementsByName("stan");
-        var notatki = document.getElementById("notatki")
-            .value;
+        var notatki = document.getElementById("notatki");
         var stan = "";
         stanInputs.forEach(function (input) {
             if (input.checked) {
                 stan = input.value;
             }
         });
+        // Validate required fields
+        var requiredFields = [
+            {
+                element: tytul,
+                value: tytul.value,
+                message: "Proszę podać tytuł książki.",
+            },
+            {
+                element: autor,
+                value: autor.value,
+                message: "Proszę podać autora książki.",
+            },
+            {
+                element: rok,
+                value: rok.value,
+                message: "Proszę podać rok wydania książki.",
+            },
+            {
+                element: kategoria,
+                value: kategoria.value,
+                message: "Proszę wybrać kategorię książki.",
+            },
+            {
+                element: document.querySelector('input[name="stan"]:checked'),
+                value: stan,
+                message: "Proszę wybrać stan książki.",
+            },
+        ];
+        var allFieldsFilled = true;
+        requiredFields.forEach(function (field) {
+            var errorMessageElement = field.element
+                .nextElementSibling;
+            if (!field.value) {
+                field.element.classList.add("invalid");
+                errorMessageElement.textContent = field.message;
+                allFieldsFilled = false;
+            }
+            else {
+                field.element.classList.remove("invalid");
+                errorMessageElement.textContent = "";
+            }
+        });
+        if (!allFieldsFilled) {
+            return;
+        }
         var resultDiv = document.createElement("div");
         resultDiv.classList.add("result");
-        resultDiv.innerHTML = "\n                <h3>Dodana ksi\u0105\u017Cka:</h3>\n                <p><strong>Tytu\u0142:</strong> ".concat(tytul, "</p>\n                <p><strong>Autor:</strong> ").concat(autor, "</p>\n                <p><strong>Rok wydania:</strong> ").concat(rok, "</p>\n                <p><strong>Kategoria:</strong> ").concat(kategoria, "</p>\n                <p><strong>Stan ksi\u0105\u017Cki:</strong> ").concat(stan, "</p>\n                <p><strong>Notatki:</strong> ").concat(notatki ? notatki : "Brak", "</p>\n              ");
+        resultDiv.innerHTML = "\n      <h3>Dodana ksi\u0105\u017Cka:</h3>\n      <p><strong>Tytu\u0142:</strong> ".concat(tytul.value, "</p>\n      <p><strong>Autor:</strong> ").concat(autor.value, "</p>\n      <p><strong>Rok wydania:</strong> ").concat(rok.value, "</p>\n      <p><strong>Kategoria:</strong> ").concat(kategoria.value, "</p>\n      <p><strong>Stan ksi\u0105\u017Cki:</strong> ").concat(stan, "</p>\n      <p><strong>Notatki:</strong> ").concat(notatki.value ? notatki.value : "Brak", "</p>\n    ");
         resultsContainer.appendChild(resultDiv);
         addBookForm.reset();
     });
@@ -182,20 +226,47 @@ document.addEventListener("DOMContentLoaded", function () {
     var opinionList = document.getElementById("lista-opinii");
     opinionForm.addEventListener("submit", function (event) {
         event.preventDefault();
-        var userName = document.getElementById("nazwa-uzytkownika").value;
-        var opinionText = document.getElementById("opinia").value;
-        var agreementChecked = document.getElementById("zgoda").checked;
-        if (!agreementChecked) {
-            alert("Musisz wyrazić zgodę na zapoznanie się z regulaminem.");
-            return;
-        }
-        if (!userName || !opinionText) {
-            alert("Proszę podać nazwę użytkownika oraz opinię.");
+        var userName = document.getElementById("nazwa-uzytkownika");
+        var opinionText = document.getElementById("opinia");
+        var agreementChecked = document.getElementById("zgoda");
+        // Validate required fields
+        var requiredFields = [
+            {
+                element: userName,
+                value: userName.value,
+                message: "Proszę podać nazwę użytkownika.",
+            },
+            {
+                element: opinionText,
+                value: opinionText.value,
+                message: "Proszę podać opinię.",
+            },
+            {
+                element: agreementChecked,
+                value: agreementChecked.checked ? "checked" : "",
+                message: "Musisz wyrazić zgodę na zapoznanie się z regulaminem.",
+            },
+        ];
+        var allFieldsFilled = true;
+        requiredFields.forEach(function (field) {
+            var errorMessageElement = field.element
+                .nextElementSibling;
+            if (!field.value) {
+                field.element.classList.add("invalid");
+                errorMessageElement.textContent = field.message;
+                allFieldsFilled = false;
+            }
+            else {
+                field.element.classList.remove("invalid");
+                errorMessageElement.textContent = "";
+            }
+        });
+        if (!allFieldsFilled) {
             return;
         }
         var opinionDiv = document.createElement("div");
         opinionDiv.classList.add("opinia");
-        opinionDiv.innerHTML = "\n        <p><strong>".concat(userName, "</strong>:</p>\n        <p>\"").concat(opinionText, "\"</p>\n      ");
+        opinionDiv.innerHTML = "\n      <p><strong>".concat(userName.value, "</strong>:</p>\n      <p>\"").concat(opinionText.value, "\"</p>\n    ");
         opinionList.appendChild(opinionDiv);
         opinionForm.reset();
         if (opinionList.children.length > 0) {

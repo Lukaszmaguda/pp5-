@@ -24,26 +24,30 @@
             <h2>Dodaj książkę do wymiany</h2>
             <form id="dodajKsiazkeForm">
             <label for="tytul">Tytuł książki:</label>
-            <input type="text" id="tytul" name="tytul" required />
+            <input type="text" id="tytul" name="tytul" />
+            <span class="error-message"></span>
 
             <label for="autor">Autor:</label>
-            <input type="text" id="autor" name="autor" required />
+            <input type="text" id="autor" name="autor" />
+            <span class="error-message"></span>
 
             <label for="rok">Rok wydania:</label>
-            <input type="number" id="rok" name="rok" required max="2024" />
+            <input type="number" id="rok" name="rok" max="2024" />
+            <span class="error-message"></span>
 
             <label for="kategoria">Kategoria:</label>
-            <select id="kategoria" name="kategoria" required>
+            <select id="kategoria" name="kategoria">
                 <option value="fantastyka">Fantastyka</option>
                 <option value="biografia">Biografia</option>
                 <option value="poradnik">Poradnik</option>
                 <option value="kryminał">Kryminał</option>
                 <option value="literatura piękna">Literatura piękna</option>
             </select>
+            <span class="error-message"></span>
 
             <label for="stan">Stan książki:</label>
             <div id="stan">
-                <input type="radio" id="nowa" name="stan" value="nowa" required />
+                <input type="radio" id="nowa" name="stan" value="nowa" />
                 <label for="nowa">Nowa</label>
 
                 <input type="radio" id="idealny" name="stan" value="idealny" />
@@ -55,6 +59,7 @@
                 <input type="radio" id="używana" name="stan" value="używana" />
                 <label for="używana">Używana</label>
             </div>
+            <span class="error-message"></span>
 
             <label for="notatki">Notatki dodatkowe:</label>
             <textarea id="notatki" name="notatki" rows="4"></textarea>
@@ -87,14 +92,17 @@
             <h2>Opinie użytkowników</h2>
             <form id="dodajOpinieForm">
                 <label for="nazwa-uzytkownika">Nazwa użytkownika:</label>
-                <input type="text" id="nazwa-uzytkownika" name="nazwa-uzytkownika" required />
+                <input type="text" id="nazwa-uzytkownika" name="nazwa-uzytkownika" />
+                <span class="error-message"></span>
 
                 <label for="opinia">Twoja opinia:</label>
-                <textarea id="opinia" name="opinia" rows="4" required></textarea>
+                <textarea id="opinia" name="opinia" rows="4"></textarea>
+                <span class="error-message"></span>
                 <div>
-                    <input type="checkbox" id="zgoda" name="zgoda" required />
+                    <input type="checkbox" id="zgoda" name="zgoda" />
                     <label for="zgoda">Potwierdzam zapoznanie się z regulaminem</label>
                 </div>
+                <span class="error-message"></span>
 
                 <button type="submit">Dodaj opinię</button>
             </form>
