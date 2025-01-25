@@ -168,7 +168,6 @@ input[type="checkbox"] {
     accent-color: $secondary-color;
 }
 
-/* Styl dla pól z błędami */
 input.invalid {
     border: 2px solid red;
 }
@@ -179,16 +178,13 @@ select.invalid {
     border: 2px solid red;
 }
 
-/* Komunikat błędu */
 .error-message {
     color: red;
     font-size: 0.9rem;
     margin-top: 0.3rem;
     display: none;
-    /* Domyślnie ukryty */
 }
 
-/* Pokazywanie komunikatu błędu dla pól z błędem */
 input.invalid+.error-message,
 textarea.invalid+.error-message,
 select.invalid+.error-message {

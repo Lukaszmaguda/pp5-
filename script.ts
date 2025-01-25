@@ -65,7 +65,6 @@ function displayNoBooksFound(resultsContainer: HTMLElement): void {
   resultsContainer.appendChild(noBooksMessage);
 }
 
-// Obsługa wyszukiwania książek
 document.addEventListener("DOMContentLoaded", () => {
   const searchForm = document.getElementById(
     "wyszukajKsiazkeForm"
@@ -137,6 +136,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   addBookSection.insertAdjacentElement("beforeend", resultsContainer);
 
+  function validateRadioButtons(): boolean {
+    const radios = document.getElementsByName("stan");
+    let formValid = false;
+    const errorMessageElement = document.querySelector(
+      ".error-message.stan"
+    ) as HTMLElement;
+
+    for (let i = 0; i < radios.length; i++) {
+      if ((radios[i] as HTMLInputElement).checked) {
+        formValid = true;
+        break;
+      }
+    }
+
+    if (errorMessageElement) {
+      if (!formValid) {
+        errorMessageElement.textContent = "Proszę wybrać stan książki.";
+        errorMessageElement.style.display = "block";
+      } else {
+        errorMessageElement.textContent = "";
+        errorMessageElement.style.display = "none";
+      }
+    }
+
+    return formValid;
+  }
+
   addBookForm.addEventListener("submit", (event: Event) => {
     event.preventDefault();
 
@@ -156,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
 
-    // Validate required fields
     const requiredFields = [
       {
         element: tytul,
@@ -173,18 +198,6 @@ document.addEventListener("DOMContentLoaded", () => {
         value: rok.value,
         message: "Proszę podać rok wydania książki.",
       },
-      {
-        element: kategoria,
-        value: kategoria.value,
-        message: "Proszę wybrać kategorię książki.",
-      },
-      {
-        element: document.querySelector(
-          'input[name="stan"]:checked'
-        ) as HTMLInputElement,
-        value: stan,
-        message: "Proszę wybrać stan książki.",
-      },
     ];
 
     let allFieldsFilled = true;
@@ -194,14 +207,20 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!field.value) {
         field.element.classList.add("invalid");
         errorMessageElement.textContent = field.message;
+        errorMessageElement.style.display = "block";
         allFieldsFilled = false;
       } else {
         field.element.classList.remove("invalid");
         errorMessageElement.textContent = "";
+        errorMessageElement.style.display = "none";
       }
     });
 
     if (!allFieldsFilled) {
+      return;
+    }
+
+    if (!validateRadioButtons()) {
       return;
     }
 
@@ -240,7 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "zgoda"
     ) as HTMLInputElement;
 
-    // Validate required fields
     const requiredFields = [
       {
         element: userName,

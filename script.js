@@ -157,6 +157,28 @@ document.addEventListener("DOMContentLoaded", function () {
     var resultsContainer = document.createElement("div");
     resultsContainer.id = "resultsContainer";
     addBookSection.insertAdjacentElement("beforeend", resultsContainer);
+    function validateRadioButtons() {
+        var radios = document.getElementsByName("stan");
+        var formValid = false;
+        var errorMessageElement = document.querySelector(".error-message.stan");
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked) {
+                formValid = true;
+                break;
+            }
+        }
+        if (errorMessageElement) {
+            if (!formValid) {
+                errorMessageElement.textContent = "Proszę wybrać stan książki.";
+                errorMessageElement.style.display = "block";
+            }
+            else {
+                errorMessageElement.textContent = "";
+                errorMessageElement.style.display = "none";
+            }
+        }
+        return formValid;
+    }
     addBookForm.addEventListener("submit", function (event) {
         event.preventDefault();
         var tytul = document.getElementById("tytul");
@@ -188,16 +210,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 value: rok.value,
                 message: "Proszę podać rok wydania książki.",
             },
-            {
-                element: kategoria,
-                value: kategoria.value,
-                message: "Proszę wybrać kategorię książki.",
-            },
-            {
-                element: document.querySelector('input[name="stan"]:checked'),
-                value: stan,
-                message: "Proszę wybrać stan książki.",
-            },
         ];
         var allFieldsFilled = true;
         requiredFields.forEach(function (field) {
@@ -206,14 +218,19 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!field.value) {
                 field.element.classList.add("invalid");
                 errorMessageElement.textContent = field.message;
+                errorMessageElement.style.display = "block";
                 allFieldsFilled = false;
             }
             else {
                 field.element.classList.remove("invalid");
                 errorMessageElement.textContent = "";
+                errorMessageElement.style.display = "none";
             }
         });
         if (!allFieldsFilled) {
+            return;
+        }
+        if (!validateRadioButtons()) {
             return;
         }
         var resultDiv = document.createElement("div");
@@ -229,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function () {
         var userName = document.getElementById("nazwa-uzytkownika");
         var opinionText = document.getElementById("opinia");
         var agreementChecked = document.getElementById("zgoda");
-        // Validate required fields
         var requiredFields = [
             {
                 element: userName,
