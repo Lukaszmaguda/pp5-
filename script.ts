@@ -239,6 +239,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     resultsContainer.appendChild(resultDiv);
     addBookForm.reset();
+    document.querySelectorAll(".error-message").forEach((el) => {
+      (el as HTMLElement).textContent = "";
+      (el as HTMLElement).style.display = "none";
+    });
   });
 
   const opinionForm = document.getElementById(
@@ -255,9 +259,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const opinionText = document.getElementById(
       "opinia"
     ) as HTMLTextAreaElement;
-    const agreementChecked = document.getElementById(
-      "zgoda"
-    ) as HTMLInputElement;
 
     const requiredFields = [
       {
@@ -270,11 +271,6 @@ document.addEventListener("DOMContentLoaded", () => {
         value: opinionText.value,
         message: "Proszę podać opinię.",
       },
-      {
-        element: agreementChecked,
-        value: agreementChecked.checked ? "checked" : "",
-        message: "Musisz wyrazić zgodę na zapoznanie się z regulaminem.",
-      },
     ];
 
     let allFieldsFilled = true;
@@ -284,10 +280,12 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!field.value) {
         field.element.classList.add("invalid");
         errorMessageElement.textContent = field.message;
+        errorMessageElement.style.display = "block";
         allFieldsFilled = false;
       } else {
         field.element.classList.remove("invalid");
         errorMessageElement.textContent = "";
+        errorMessageElement.style.display = "none";
       }
     });
 
@@ -306,10 +304,14 @@ document.addEventListener("DOMContentLoaded", () => {
     opinionList.appendChild(opinionDiv);
 
     opinionForm.reset();
+    document.querySelectorAll(".error-message").forEach((el) => {
+      (el as HTMLElement).textContent = "";
+      (el as HTMLElement).style.display = "none";
+    });
     if (opinionList.children.length > 0) {
       const noOpinionsMessage = opinionList.querySelector("p");
       if (noOpinionsMessage) {
-        noOpinionsMessage.style.display = "none";
+        (noOpinionsMessage as HTMLElement).style.display = "none";
       }
     }
   });

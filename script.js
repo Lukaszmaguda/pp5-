@@ -95,7 +95,6 @@ function displayNoBooksFound(resultsContainer) {
     noBooksMessage.style.fontWeight = "bold";
     resultsContainer.appendChild(noBooksMessage);
 }
-// Obsługa wyszukiwania książek
 document.addEventListener("DOMContentLoaded", function () {
     var searchForm = document.getElementById("wyszukajKsiazkeForm");
     searchForm.addEventListener("submit", function (event) { return __awaiter(_this, void 0, void 0, function () {
@@ -193,7 +192,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 stan = input.value;
             }
         });
-        // Validate required fields
         var requiredFields = [
             {
                 element: tytul,
@@ -238,6 +236,10 @@ document.addEventListener("DOMContentLoaded", function () {
         resultDiv.innerHTML = "\n      <h3>Dodana ksi\u0105\u017Cka:</h3>\n      <p><strong>Tytu\u0142:</strong> ".concat(tytul.value, "</p>\n      <p><strong>Autor:</strong> ").concat(autor.value, "</p>\n      <p><strong>Rok wydania:</strong> ").concat(rok.value, "</p>\n      <p><strong>Kategoria:</strong> ").concat(kategoria.value, "</p>\n      <p><strong>Stan ksi\u0105\u017Cki:</strong> ").concat(stan, "</p>\n      <p><strong>Notatki:</strong> ").concat(notatki.value ? notatki.value : "Brak", "</p>\n    ");
         resultsContainer.appendChild(resultDiv);
         addBookForm.reset();
+        document.querySelectorAll(".error-message").forEach(function (el) {
+            el.textContent = "";
+            el.style.display = "none";
+        });
     });
     var opinionForm = document.getElementById("dodajOpinieForm");
     var opinionList = document.getElementById("lista-opinii");
@@ -245,7 +247,6 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         var userName = document.getElementById("nazwa-uzytkownika");
         var opinionText = document.getElementById("opinia");
-        var agreementChecked = document.getElementById("zgoda");
         var requiredFields = [
             {
                 element: userName,
@@ -257,11 +258,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 value: opinionText.value,
                 message: "Proszę podać opinię.",
             },
-            {
-                element: agreementChecked,
-                value: agreementChecked.checked ? "checked" : "",
-                message: "Musisz wyrazić zgodę na zapoznanie się z regulaminem.",
-            },
         ];
         var allFieldsFilled = true;
         requiredFields.forEach(function (field) {
@@ -270,11 +266,13 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!field.value) {
                 field.element.classList.add("invalid");
                 errorMessageElement.textContent = field.message;
+                errorMessageElement.style.display = "block";
                 allFieldsFilled = false;
             }
             else {
                 field.element.classList.remove("invalid");
                 errorMessageElement.textContent = "";
+                errorMessageElement.style.display = "none";
             }
         });
         if (!allFieldsFilled) {
@@ -285,6 +283,10 @@ document.addEventListener("DOMContentLoaded", function () {
         opinionDiv.innerHTML = "\n      <p><strong>".concat(userName.value, "</strong>:</p>\n      <p>\"").concat(opinionText.value, "\"</p>\n    ");
         opinionList.appendChild(opinionDiv);
         opinionForm.reset();
+        document.querySelectorAll(".error-message").forEach(function (el) {
+            el.textContent = "";
+            el.style.display = "none";
+        });
         if (opinionList.children.length > 0) {
             var noOpinionsMessage = opinionList.querySelector("p");
             if (noOpinionsMessage) {
